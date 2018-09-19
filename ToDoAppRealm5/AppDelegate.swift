@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import RealmSwift
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,7 +17,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        let note = Note()
+        note.title = "Jerome's First Note"
+        note.content = "Waiting for Gods blessing to arrive"
+        
+        do{
+            let realm = try Realm()
+            try realm.write {
+                realm.add(note)
+            }
+        } catch {
+            print("Error creating realm in AppDelegate: \(error)")
+        }
         return true
     }
 
